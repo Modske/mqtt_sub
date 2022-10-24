@@ -1,37 +1,37 @@
 USE_PROCD=1
 
 start_service() {
-        local enabled
-		local Host
-		local Port
-		local User
-		local Pass
-        local Cert
+        local enable
+		local host
+		local port
+		local user
+		local pass
+        local cert
 
         config_load 'mqtt_sub' 
-        config_get enabled mqtt_sub_sct 'enable' 
-		config_get host mqtt_sub_sct 'Host'
-		config_get port mqtt_sub_sct 'Port'
-		config_get user mqtt_sub_sct 'User'
-		config_get pass mqtt_sub_sct 'Pass'
-        config_get cert_file mqtt_sub_sct 'Cert'
+        config_get enable mqtt_sub_sct 'enable' 
+		config_get host mqtt_sub_sct 'host'
+		config_get port mqtt_sub_sct 'port'
+		config_get user mqtt_sub_sct 'user'
+		config_get pass mqtt_sub_sct 'pass'
+        config_get cert mqtt_sub_sct 'cert_file'
 
-	if [ "$enabled" -eq 1 ]; then
+	if [ "$enable" -eq 1 ]; then
 	    procd_open_instance
-	    procd_set_param command /usr/bin/wiotpd \
-		-h $Host \
-		-l $Port \
+	    procd_set_param command /usr/bin/mqtt_sub \
+		-h $host \
+		-l $port \
 
-		if [ "$User" != "" ];then                                                        
-                procd_append_param command -u "$User"                                    
+		if [ "$user" != "" ];then                                                        
+                procd_append_param command -u "$user"                                    
         fi
 
-        if [ "$Pass" != "" ];then                                                        
-                procd_append_param command -p "$Pass"                                    
+        if [ "$pass" != "" ];then                                                        
+                procd_append_param command -p "$pass"                                    
         fi
 
-        if [ "$Cert" != "" ];then                                                        
-                procd_append_param command -u "$Cert"                                    
+        if [ "$cert" != "" ];then                                                        
+                procd_append_param command -u "$cert"                                    
         fi
 
 		procd_set_param pidfile /var/run/mqtt_sub.pid
