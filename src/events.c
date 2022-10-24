@@ -62,7 +62,7 @@ int event_report(event_node *event, sender_info *sender)
     {   
         curl_easy_setopt(curl, CURLOPT_URL, sender -> host);
 
-        if((sender -> cert_path)[0] != '\0')
+        if((sender -> cert_path)[0] == '\0')
         {   
             curl_easy_setopt(curl, CURLOPT_USE_SSL, (long)CURLUSESSL_ALL);
             curl_easy_setopt(curl, CURLOPT_CAINFO, sender -> cert_path);

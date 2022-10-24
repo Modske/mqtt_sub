@@ -1,4 +1,4 @@
-USE_PROCD = 1
+USE_PROCD=1
 
 start_service() {
         local enabled
